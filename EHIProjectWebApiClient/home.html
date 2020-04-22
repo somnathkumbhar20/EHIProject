@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <script src="lib/angular.min.js"></script>
+    <script src="lib/jquery.min.js"></script>
+    <script src="lib/bootstrap.min.js"></script>    
+    <script src="app.js"></script>
+    <style> 
+        input.ng-invalid {
+            border-color:red;
+        }
+        input.ng-valid {
+            border-color:lightgreen;
+        }
+        input.ng-untouched {
+            border-color:lightgreen;
+        }
+        .error-control{
+            color:red;
+        }
+</style> 
+</head>
+<body>
+
+    <div class="container" ng-app="ContactApp" ng-controller="ContactCtrl">
+        <div class="row">
+            <h2>Contact Form</h2>
+            <div class="col-md-11" style="margin-top:5px;">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <b>Add Contact</b>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" name="frmContact" id="frmContact">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="firstName">First Name:</label>
+                                <div class="col-sm-10">
+                                    <input type="text" required class="form-control" id="firstName" placeholder="Enter first name"
+                                            name="firstName" ng-model="firstName">
+                                    <span ng-show="frmContact.firstName.$invalid && frmContact.firstName.$touched" class="error-control">Firstname is required</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="lastName">Last Name:</label>
+                                <div class="col-sm-10">
+                                    <input required type="text" class="form-control" id="lastName" placeholder="Enter last name" name="lastName"
+                                           ng-model="lastName">
+                                    <span ng-show="frmContact.lastName.$invalid && frmContact.lastName.$touched" class="error-control">Lastname is required</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="email">Email:</label>
+                                <div class="col-sm-10">
+                                    <input required type="email" class="form-control" id="email" placeholder="Enter email" name="email"
+                                            ng-model="email">
+                                    <span ng-show="frmContact.email.$invalid && frmContact.email.$touched" class="error-control">Please enter valid email id</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="mobileNumber">Mobile Number:</label>
+                                <div class="col-sm-10">
+                                    <input required pattern="{{mobNumberPattern}}" type="text" class="form-control" id="mobileNumber"
+                                            placeholder="Enter mobile number(e.g. 09812345678)" name="mobileNumber"
+                                           ng-model="mobileNumber"> 
+                                    <span ng-show="frmContact.mobileNumber.$invalid && frmContact.mobileNumber.$touched" class="error-control">Please enter valid mobile number</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="button" ng-click="SaveUpdateContact()" class="btn btn-default"
+                                            ng-disabled="frmContact.$invalid">{{btnText}}</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-11" style="margin-top:5px;">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        Contact Details
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered table-codensed">
+                            <tr style="background-color:gray;color:white;">
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th>Email</th>
+                                <th>Mobile Number</th>
+                                <th>Actions</th>
+                            </tr>
+                            <tr ng-repeat="contact in contactList">
+                                <td>{{contact.FirstName}}</td>
+                                <td>{{contact.LastName}}</td>
+                                <td>{{contact.Email}}</td>
+                                <td>{{contact.PhoneNumber}}</td>
+                                <td>
+                                    <a class="btn btn-warning btn-sm" href="#" ng-click="EditContact(contact.Id)">Edit</a>
+                                    <a class="btn btn-danger btn-sm" href="#" ng-click="DeleteContact(contact.Id)">Delete</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </div>
+</body>
+</html>
